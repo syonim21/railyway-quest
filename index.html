@@ -53,7 +53,8 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
 .htab.active{background:rgba(124,111,255,0.2);border-color:#7c6fff;color:#a9a8ff}
 
 /* Counting objects */
-.count-instruction{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#7c6fff;margin-bottom:8px;text-align:center}
+.count-instruction{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24;margin-bottom:12px;text-align:center;text-shadow:0 0 10px rgba(251,191,36,0.5);animation:pulse-instr 2s infinite}
+@keyframes pulse-instr{0%,100%{opacity:1}50%{opacity:0.85}}
 .objects-wrap{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;min-height:56px;align-items:center}
 .obj-sprite{cursor:pointer;transition:all .2s;user-select:none;-webkit-user-select:none;display:inline-block;image-rendering:pixelated;border-radius:6px;border:2px solid transparent;padding:2px}
 .obj-sprite.group-a{border-color:rgba(124,111,255,0.5);background:rgba(124,111,255,0.1)}
@@ -68,7 +69,7 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
 
 /* Number line */
 .nl-wrap{padding:4px 0}
-.nl-instruction{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#7c6fff;margin-bottom:8px;text-align:center}
+.nl-instruction{font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24;margin-bottom:12px;text-align:center;text-shadow:0 0 10px rgba(251,191,36,0.5);animation:pulse-instr 2s infinite}
 .nl-track{display:flex;align-items:center;overflow-x:auto;padding:4px 8px 8px;scrollbar-width:none}
 .nl-track::-webkit-scrollbar{display:none}
 .nl-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
@@ -95,6 +96,8 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
 .fb-ok{background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.3);color:#4ade80}
 .fb-no{background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.3);color:#f87171}
 .fb-empty{background:transparent}
+.penalty-flash{animation:penalty-shake 0.5s}
+@keyframes penalty-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-10px)}80%{transform:translateX(10px)}}
 .defeat-panel{margin:0 14px 10px;background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.3);border-radius:12px;padding:12px;text-align:center;display:none}
 .defeat-panel.show{display:block}
 .defeat-title{font-size:15px;font-weight:900;color:#f87171;margin-bottom:4px}
@@ -105,6 +108,34 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
 .confirm-btn{display:none;width:calc(100%-28px);margin:0 14px 10px;background:#4ade80;color:#111;font-weight:900;font-size:18px;padding:14px;border-radius:14px;border:none;cursor:pointer;transition:all .15s}
 .confirm-btn.show{display:block}
 .confirm-btn:active{transform:scale(.97)}
+
+/* CHUG button */
+.chug-btn{display:none;width:180px;height:180px;margin:10px auto;background:linear-gradient(180deg,#fbbf24,#f59e0b);border:4px solid #7c6fff;border-radius:50%;color:#78350f;font-weight:900;font-size:32px;cursor:pointer;transition:all .1s;box-shadow:0 6px 0 #92400e,0 10px 20px rgba(0,0,0,0.4);text-shadow:0 2px 0 rgba(255,255,255,0.5)}
+.chug-btn.show{display:block}
+.chug-btn:active{transform:scale(.95) translateY(4px);box-shadow:0 2px 0 #92400e,0 4px 10px rgba(0,0,0,0.4)}
+.chug-count{font-size:72px;font-weight:900;color:#fbbf24;text-align:center;margin:10px 0;text-shadow:0 0 20px rgba(251,191,36,0.8)}
+
+/* FIRE button */
+.fire-btn{display:none;width:calc(100%-28px);margin:0 14px 10px;background:linear-gradient(180deg,#f87171,#dc2626);color:#fff;font-weight:900;font-size:28px;padding:20px;border-radius:14px;border:none;cursor:pointer;transition:all .15s;box-shadow:0 6px 0 #991b1b,0 10px 20px rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em}
+.fire-btn.show{display:block}
+.fire-btn:active{transform:scale(.97) translateY(4px);box-shadow:0 2px 0 #991b1b,0 4px 10px rgba(0,0,0,0.4)}
+
+/* Damage number animation */
+.damage-number{position:absolute;color:#fff;font-size:48px;font-weight:900;text-shadow:0 0 10px #f00,0 0 20px #f00;pointer-events:none;animation:damage-fly 1s forwards;z-index:100}
+@keyframes damage-fly{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.5)}}
+
+/* Enemy flash */
+.enemy-flash{animation:enemy-flash-anim .2s}
+@keyframes enemy-flash-anim{0%,100%{filter:none}50%{filter:brightness(3) hue-rotate(180deg)}}
+
+/* Combo banner */
+.combo-banner{display:none;position:fixed;top:20%;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#fbbf24,#f59e0b);border:4px solid #fff;padding:20px 40px;border-radius:20px;font-size:32px;font-weight:900;color:#78350f;text-align:center;z-index:1000;box-shadow:0 10px 30px rgba(0,0,0,0.5);animation:combo-pop .5s}
+.combo-banner.show{display:block}
+@keyframes combo-pop{0%{transform:translateX(-50%) scale(0);opacity:0}70%{transform:translateX(-50%) scale(1.1)}100%{transform:translateX(-50%) scale(1);opacity:1}}
+
+/* Ticket explosion */
+.ticket-explosion{position:fixed;pointer-events:none;z-index:999}
+@keyframes ticket-fly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.3)}}
 
 /* ---- REVEAL ---- */
 .reveal-wrap{margin:0 14px 10px;background:rgba(74,222,128,0.1);border:2px solid #4ade80;border-radius:16px;padding:16px;text-align:center;display:none}
@@ -204,17 +235,21 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
 
     <!-- TAP TO COUNT PANEL -->
     <div id="panel-count">
-      <div class="count-instruction" id="count-instr">Tap each car to count it!</div>
+      <div class="count-instruction" id="count-instr">🔥 TAP ALL the carriages to count them! 🔥</div>
       <div class="objects-wrap" id="objects-wrap"></div>
       <div class="count-tally" id="count-tally" style="display:none">
         <span class="tally-num" id="tally-num">0</span> <span id="tally-label">counted so far</span>
       </div>
+      <div class="chug-count" id="chug-count" style="display:none">0</div>
+      <button class="chug-btn" id="chug-btn" onclick="doChug()">CHUG!</button>
     </div>
 
     <!-- NUMBER LINE PANEL -->
     <div id="panel-nl" style="display:none">
       <div class="nl-instruction" id="nl-instr">Hop along the line!</div>
-      <div class="nl-track" id="nl-track"></div>
+      <div class="nl-track" id="nl-track">
+        <img id="nl-thomas" src="" style="display:none" alt="">
+      </div>
       <div class="nl-hops-left" id="nl-hops-txt">Hops left: <span id="nl-hops-num" style="color:#fbbf24;font-weight:900;font-size:15px">?</span></div>
       <div class="nl-controls">
         <button class="nl-hop-btn nl-hop-add" id="nl-hop-btn" onclick="doHop()">+1 Hop!</button>
@@ -234,6 +269,8 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
   </div>
 
   <button class="confirm-btn" id="confirm-btn" onclick="confirmAnswer()">That's my answer! ✓</button>
+  <button class="fire-btn" id="fire-btn" onclick="doFire()">🔥 FIRE! 🔥</button>
+  <button class="confirm-btn" id="giveup-btn" onclick="giveUp()" style="background:#f87171;color:#fff;margin-top:8px;display:none">Give Up & See Answer ⚠️</button>
 
   <div class="reveal-wrap" id="reveal-wrap">
     <div class="reveal-big" id="reveal-num">11</div>
@@ -281,6 +318,12 @@ body{font-family:system-ui,sans-serif;background:#0f0e17;min-height:100vh;color:
     <div class="modal-sub" id="victory-sub">You won 12 tickets!</div>
     <button class="modal-ok" onclick="closeVictoryModal()">Keep Going!</button>
   </div>
+</div>
+
+<!-- COMBO BANNER -->
+<div class="combo-banner" id="combo-banner">
+  <div>COMBO x<span id="combo-num">3</span>!</div>
+  <div style="font-size:16px;margin-top:8px">Double tickets! 🎟🎟</div>
 </div>
 
 <script>
@@ -331,7 +374,8 @@ let G = {
     enemy:null, a:0, b:0, op:"+", ans:0,
     tapCount:0, tapDone:false,
     nlPos:0, nlHops:0, nlDone:false,
-    hintMode:"count"
+    hintMode:"count",
+    chugCount:0, combo:0
   }
 };
 
@@ -441,6 +485,7 @@ function startBattle() {
   const b = G.battle;
   b.playerHp=100; b.enemyHp=100; b.locked=false; b.defeated=false; b.revealed=false;
   b.tapCount=0; b.tapDone=false; b.nlDone=false;
+  b.combo=0; // Reset combo on new battle
   b.enemy = POKEMON[Math.floor(Math.random()*POKEMON.length)];
   Object.assign(b, genProblem());
   goScreen("screen-battle");
@@ -499,22 +544,24 @@ function renderCountPanel() {
   const wrap = document.getElementById("objects-wrap");
   wrap.innerHTML = "";
   b.tapCount = 0; b.tapDone = false;
+  b.chugCount = 0;
   document.getElementById("count-tally").style.display="none";
+  document.getElementById("chug-count").style.display="block";
+  document.getElementById("chug-count").textContent = "0";
+  document.getElementById("chug-btn").classList.add("show");
+  document.getElementById("fire-btn").classList.remove("show");
   document.getElementById("confirm-btn").classList.remove("show");
+  document.getElementById("giveup-btn").style.display="none";
 
   if(b.op==="+") {
-    document.getElementById("count-instr").textContent = "Tap ALL the carriages to count them!";
-    // Group A: b.a passenger cars (purple border)
-    for(let i=0;i<b.a;i++) spawnCar(wrap, i, "group-a", false);
-    // Visual divider + plus sign
-    const plus = document.createElement("div");
-    plus.innerHTML = `<div style="background:#7c6fff;color:#fff;border-radius:8px;padding:4px 10px;font-weight:900;font-size:20px;margin:0 4px">+</div>`;
-    wrap.appendChild(plus);
-    // Group B: b.b cars (yellow, locked until A is done)
-    for(let i=0;i<b.b;i++) spawnCar(wrap, b.a+i, "group-b", false);
+    document.getElementById("count-instr").textContent = "🔥 TAP CHUG to count! 🔥";
+    // Show Thomas sprite for chugging animation
+    const playerCanvas = document.getElementById("player-canvas");
+    playerCanvas.style.display = "block";
   } else {
-    document.getElementById("count-instr").textContent = "Tap "+b.b+" carriages to take them away!";
-    // All b.a cars shown, need to cross out b.b
+    document.getElementById("count-instr").textContent = "🔥 TAP "+b.b+" carriages to take them away! 🔥";
+    document.getElementById("chug-count").style.display="none";
+    document.getElementById("chug-btn").classList.remove("show");
     for(let i=0;i<b.a;i++) spawnCar(wrap, i, "group-a", true);
   }
 }
@@ -569,6 +616,7 @@ function handleObjTap(el, idx, isSub) {
     if(b.tapCount===b.a+b.b) {
       b.tapDone=true;
       showConfirmBtn();
+      document.getElementById("giveup-btn").style.display="none";
     }
   } else {
     // Subtraction: cross out cars
@@ -585,6 +633,7 @@ function handleObjTap(el, idx, isSub) {
       setTimeout(()=>{
         document.querySelectorAll(".obj-sprite.group-a:not(.crossed)").forEach(e=>e.classList.add("counted"));
         showConfirmBtn();
+        document.getElementById("giveup-btn").style.display="none";
       },400);
     }
   }
@@ -623,11 +672,96 @@ function confirmAnswer() {
   doCorrect();
 }
 
+// ===================== CHUG & FIRE MECHANIC =====================
+function doChug() {
+  const b = G.battle;
+  if(b.locked||b.revealed||b.defeated||b.op!=="+") return;
+  
+  b.chugCount++;
+  document.getElementById("chug-count").textContent = b.chugCount;
+  
+  // Chug animation on Thomas sprite
+  const pc = document.getElementById("player-canvas");
+  pc.style.transition="transform .05s";
+  pc.style.transform="translateX(-5px)";
+  setTimeout(()=>{pc.style.transform="translateX(5px)";},50);
+  setTimeout(()=>{pc.style.transform="translateX(0)";},100);
+  
+  // Check if reached answer
+  if(b.chugCount >= b.ans) {
+    b.chugCount = b.ans;
+    document.getElementById("chug-count").textContent = b.ans;
+    // Transform to FIRE button
+    document.getElementById("chug-btn").classList.remove("show");
+    document.getElementById("fire-btn").classList.add("show");
+  }
+}
+
+function doFire() {
+  const b = G.battle;
+  if(b.locked||b.revealed||b.defeated) return;
+  
+  b.locked = true;
+  document.getElementById("fire-btn").classList.remove("show");
+  
+  // Show damage number flying off enemy
+  const enemyWrap = document.querySelector(".enemy-canvas-wrap");
+  const damageNum = document.createElement("div");
+  damageNum.className = "damage-number";
+  damageNum.textContent = "-34";
+  damageNum.style.left = "50%";
+  damageNum.style.top = "50%";
+  enemyWrap.appendChild(damageNum);
+  
+  // Flash enemy white
+  const ec = document.getElementById("enemy-canvas");
+  ec.classList.add("enemy-flash");
+  setTimeout(()=>ec.classList.remove("enemy-flash"), 200);
+  
+  // Remove damage number after animation
+  setTimeout(()=>damageNum.remove(), 1000);
+  
+  // Deal damage
+  doCorrect();
+}
+
+function giveUp() {
+  const b = G.battle;
+  if(b.revealed||b.locked||b.defeated) return;
+  // Penalty for giving up
+  b.locked=true;
+  b.playerHp = Math.max(0, b.playerHp-20);
+  b.combo = 0; // Reset combo on give up
+  updateHPBars();
+  save();
+  
+  // Show reveal with penalty message
+  const eq = b.a+" "+b.op+" "+b.b+" = "+b.ans;
+  document.getElementById("reveal-num").textContent = b.ans;
+  document.getElementById("reveal-eq").textContent = eq;
+  document.getElementById("reveal-msg").textContent = "You gave up - the Pokémon attacks!";
+  document.getElementById("reveal-wrap").classList.add("show");
+  document.getElementById("eq-q").textContent = b.ans;
+  document.getElementById("feedback").className="feedback fb-no";
+  document.getElementById("feedback").textContent="⚠️ Penalty! "+b.a+" "+b.op+" "+b.b+" = "+b.ans;
+  document.getElementById("confirm-btn").classList.remove("show");
+  b.revealed=true;
+  
+  if(b.playerHp<=0) {
+    b.defeated=true;
+    b.combo = 0; // Reset combo on defeat
+    document.getElementById("defeat-panel").classList.add("show");
+  } else {
+    document.getElementById("next-btn").classList.add("show");
+  }
+}
+
 // ===================== NUMBER LINE =====================
 function renderNLPanel() {
   const b = G.battle;
   b.nlPos = b.a; b.nlHops = b.b; b.nlDone = false;
   document.getElementById("confirm-btn").classList.remove("show");
+  document.getElementById("giveup-btn").style.display="block";
 
   const lo = Math.max(0, Math.min(b.a, b.ans)-1);
   const hi = Math.max(b.a, b.ans)+1;
@@ -638,14 +772,20 @@ function renderNLPanel() {
   // Instruction
   const dir = b.op==="+"?"right":"left";
   document.getElementById("nl-instr").textContent = 
-    b.op==="+" ? "Start at "+b.a+". Hop "+b.b+" steps to the right →" 
-               : "Start at "+b.a+". Hop "+b.b+" steps to the left ←";
+    b.op==="+" ? "🔥 START at "+b.a+". Hop "+b.b+" steps to the RIGHT →" 
+               : "🔥 BRAKE! START at "+b.a+". Go "+b.b+" steps LEFT ←";
   
   document.getElementById("nl-hops-txt").innerHTML = "Hops left: <span id='nl-hops-num' style='color:#fbbf24;font-weight:900;font-size:15px'>"+b.b+"</span>";
   const hopBtn = document.getElementById("nl-hop-btn");
-  hopBtn.textContent = b.op==="+" ? "+1 Hop →" : "−1 Hop ←";
+  hopBtn.textContent = b.op==="+" ? "+1 Hop →" : "🛑 BRAKE!";
   hopBtn.className = "nl-hop-btn "+(b.op==="+"?"nl-hop-add":"nl-hop-sub");
   hopBtn.disabled = false;
+  
+  // Flip Thomas sprite for subtraction
+  const thomas = document.getElementById("nl-thomas");
+  if(thomas) {
+    thomas.style.transform = b.op==="-" ? "scaleX(-1)" : "scaleX(1)";
+  }
 
   for(let i=lo; i<=hi; i++) {
     if(i>lo) {
@@ -667,7 +807,39 @@ function renderNLPanel() {
 }
 
 function renderNLThomas() {
-  // Just highlight the current dot with a train icon for now
+  // Create or update Thomas sprite on number line
+  const b = G.battle;
+  let thomas = document.getElementById("nl-thomas");
+  if(!thomas) {
+    thomas = document.createElement("img");
+    thomas.id = "nl-thomas";
+    thomas.style.position = "absolute";
+    thomas.style.transition = "left .3s, transform .2s";
+    thomas.style.pointerEvents = "none";
+    thomas.style.imageRendering = "pixelated";
+    thomas.style.width = "40px";
+    thomas.style.height = "40px";
+    thomas.style.top = "-50px";
+    document.getElementById("nl-track").appendChild(thomas);
+  }
+  
+  // Load Thomas sprite
+  loadImg("thomas", img => {
+    thomas.src = img.src;
+    thomas.style.display = "block";
+  });
+  
+  // Position on current dot
+  const currentDot = document.getElementById("nldot-"+b.nlPos);
+  if(currentDot) {
+    const track = document.getElementById("nl-track");
+    const dotRect = currentDot.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+    thomas.style.left = (currentDot.offsetLeft - 20) + "px";
+  }
+  
+  // Flip for subtraction
+  thomas.style.transform = b.op==="-" ? "scaleX(-1)" : "scaleX(1)";
 }
 
 function doHop() {
@@ -692,12 +864,16 @@ function doHop() {
     nextDot.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
   }
   document.getElementById("nl-hops-num").textContent = b.nlHops;
+  
+  // Update Thomas position
+  renderNLThomas();
 
   if(b.nlHops===0) {
     b.nlDone=true;
     document.getElementById("nl-hop-btn").disabled=true;
     const result = b.op==="+" ? b.a+b.b : b.a-b.b;
-    document.getElementById("nl-instr").textContent = "You landed on "+result+"! That's the answer!";
+    document.getElementById("nl-instr").textContent = "🎯 You landed on "+result+"! That's the answer!";
+    document.getElementById("giveup-btn").style.display="none";
     setTimeout(()=>{
       // Auto-confirm after a moment
       document.getElementById("confirm-btn").textContent="The answer is "+result+"! ✓";
@@ -711,6 +887,7 @@ function doHop() {
 function doCorrect() {
   const b = G.battle;
   b.enemyHp = Math.max(0, b.enemyHp-34);
+  b.combo++; // Increment combo
   updateHPBars();
   G.xp += 10;
   G.rank = Math.floor(G.xp/100)+1;
@@ -738,11 +915,20 @@ function doCorrect() {
   b.revealed=true;
 
   if(b.enemyHp<=0) {
-    const reward = 10+G.rank*2;
+    // Calculate reward with combo
+    let reward = 10+G.rank*2;
+    if(b.combo >= 3) {
+      reward *= 2;
+      showComboBanner(b.combo);
+    }
     G.tickets += reward;
     save();
+    
+    // Ticket explosion animation
+    spawnTicketExplosion();
+    
     setTimeout(()=>{
-      document.getElementById("victory-sub").textContent="You won "+reward+" tickets!";
+      document.getElementById("victory-sub").textContent="You won "+reward+" tickets!"+(b.combo>=3?" (COMBO x"+b.combo+"!)":"");
       document.getElementById("victory-modal").classList.add("open");
     }, 900);
   } else {
@@ -750,10 +936,66 @@ function doCorrect() {
   }
 }
 
+function doWrong() {
+  const b = G.battle;
+  // Penalty: player takes damage
+  b.playerHp = Math.max(0, b.playerHp-25);
+  b.combo = 0; // Reset combo on wrong
+  updateHPBars();
+  save();
+  
+  // Flash screen red
+  const arena = document.getElementById("battle-arena");
+  arena.style.animation = "penalty-shake 0.5s";
+  setTimeout(()=>{arena.style.animation="";},500);
+  
+  // Show wrong feedback
+  document.getElementById("feedback").className="feedback fb-no";
+  document.getElementById("feedback").textContent="❌ Wrong! The Pokémon attacks!";
+  
+  // Check defeat
+  if(b.playerHp<=0) {
+    b.defeated=true;
+    b.combo = 0; // Reset combo on defeat
+    document.getElementById("defeat-panel").classList.add("show");
+    document.getElementById("confirm-btn").classList.remove("show");
+  }
+}
+
+// ===================== COMBO SYSTEM =====================
+function showComboBanner(n) {
+  const banner = document.getElementById("combo-banner");
+  document.getElementById("combo-num").textContent = n;
+  banner.classList.add("show");
+  setTimeout(()=>banner.classList.remove("show"), 2000);
+}
+
+// ===================== TICKET EXPLOSION =====================
+function spawnTicketExplosion() {
+  const enemyRect = document.querySelector(".enemy-canvas-wrap").getBoundingClientRect();
+  const ticketRect = document.querySelector(".ticket-badge").getBoundingClientRect();
+  
+  for(let i=0; i<8; i++) {
+    const ticket = document.createElement("div");
+    ticket.className = "ticket-explosion";
+    ticket.innerHTML = "🎟";
+    ticket.style.fontSize = "24px";
+    ticket.style.left = (enemyRect.left + enemyRect.width/2) + "px";
+    ticket.style.top = (enemyRect.top + enemyRect.height/2) + "px";
+    ticket.style.setProperty("--tx", (ticketRect.left - enemyRect.left) + "px");
+    ticket.style.setProperty("--ty", (ticketRect.top - enemyRect.top) + "px");
+    ticket.style.animation = "ticket-fly 1s forwards";
+    ticket.style.animationDelay = (i*0.1) + "s";
+    document.body.appendChild(ticket);
+    setTimeout(()=>ticket.remove(), 1500);
+  }
+}
+
 function nextRound() {
   const b = G.battle;
   b.revealed=false; b.locked=false;
   b.tapCount=0; b.tapDone=false; b.nlPos=b.a; b.nlHops=b.b; b.nlDone=false;
+  b.combo=0; // Reset combo on new round
   Object.assign(b, genProblem());
   document.getElementById("reveal-wrap").classList.remove("show");
   document.getElementById("next-btn").classList.remove("show");
